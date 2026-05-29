@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Plane, Menu, X, MessageSquare, Home, MapPin, Shield } from "lucide-react";
+import { Plane, Menu, X, MessageSquare, Home, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -54,11 +54,6 @@ export function Navbar() {
               </Link>
             );
           })}
-          <Link href="/admin">
-            <Button variant="ghost" size="sm" className="ml-2">
-              <Shield className="h-4 w-4" />
-            </Button>
-          </Link>
         </div>
 
         <div className="flex items-center gap-3">

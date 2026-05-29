@@ -8,10 +8,13 @@ export const SYSTEM_PROMPT = `Eres un asistente de viajes experto llamado "Takei
 
 CAPACIDADES:
 - Recomendar hoteles según presupuesto, estilo y ubicación
+- Buscar hoteles disponibles en Booking.com con precios y disponibilidad real en tiempo
+- Buscar actividades, tours y excursiones en Civitatis para cualquier destino
 - Sugerir zonas donde alojarse en ciudades
 - Dar consejos de viaje personalizados
 - Comparar opciones de alojamiento
 - Informar sobre puntos de interés cercanos
+- Recomendar experiencias y actividades turísticas con precios y valoraciones
 
 ESTILO DE RESPUESTA:
 - Habla de forma natural, amigable y profesional
@@ -130,6 +133,75 @@ export const TRAVEL_TOOLS: OpenAI.ChatCompletionTool[] = [
           },
         },
         required: ["preferences"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_civitatis_activities",
+      description:
+        "Busca actividades, tours y excursiones en Civitatis para un destino. Devuelve experiencias disponibles con precios, valoraciones y políticas de cancelación.",
+      parameters: {
+        type: "object",
+        properties: {
+          destination: {
+            type: "string",
+            description: "Ciudad o destino donde buscar actividades (ej: Roma, Barcelona, Tokyo)",
+          },
+          query: {
+            type: "string",
+            description:
+              "Búsqueda específica de actividad (ej: 'tour gastronómico', 'visita guiada al Coliseo', 'excursión al Vaticano')",
+          },
+          latitude: {
+            type: "string",
+            description: "Latitud para búsqueda por coordenadas (opcional)",
+          },
+          longitude: {
+            type: "string",
+            description: "Longitud para búsqueda por coordenadas (opcional)",
+          },
+        },
+        required: ["destination"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_booking_hotels",
+      description:
+        "Busca hoteles disponibles en Booking.com para un destino con fechas específicas. Devuelve disponibilidad, precios y detalles de propiedades.",
+      parameters: {
+        type: "object",
+        properties: {
+          city: {
+            type: "string",
+            description: "Ciudad destino (ej: Madrid, Paris, Rome)",
+          },
+          checkin: {
+            type: "string",
+            description: "Fecha de check-in en formato YYYY-MM-DD",
+          },
+          checkout: {
+            type: "string",
+            description: "Fecha de check-out en formato YYYY-MM-DD",
+          },
+          adults: {
+            type: "number",
+            description: "Número de adultos (por defecto 2)",
+          },
+          rooms: {
+            type: "number",
+            description: "Número de habitaciones (por defecto 1)",
+          },
+          currency: {
+            type: "string",
+            description: "Moneda para los precios (por defecto EUR)",
+          },
+        },
+        required: ["city", "checkin", "checkout"],
       },
     },
   },
