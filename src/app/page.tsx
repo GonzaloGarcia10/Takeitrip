@@ -59,12 +59,12 @@ const features = [
 ];
 
 const popularDestinations = [
-  { name: "París", country: "Francia", emoji: "🗼", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop" },
-  { name: "Roma", country: "Italia", emoji: "🏛️", image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=400&fit=crop" },
-  { name: "Bruselas", country: "Bélgica", emoji: "🍫", image: "https://images.unsplash.com/photo-1533387520709-752d83de3630?w=600&h=400&fit=crop" },
-  { name: "Tokio", country: "Japón", emoji: "🏯", image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=400&fit=crop" },
-  { name: "Nueva York", country: "EE.UU.", emoji: "🗽", image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop" },
-  { name: "Barcelona", country: "España", emoji: "🏖️", image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&h=400&fit=crop" },
+  { name: "París", slug: "paris", country: "Francia", emoji: "🗼", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop", rating: 4.8 },
+  { name: "Roma", slug: "roma", country: "Italia", emoji: "🏛️", image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=400&fit=crop", rating: 4.7 },
+  { name: "Barcelona", slug: "barcelona", country: "España", emoji: "🏖️", image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&h=400&fit=crop", rating: 4.6 },
+  { name: "Tokio", slug: "tokio", country: "Japón", emoji: "🏯", image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&h=400&fit=crop", rating: 4.9 },
+  { name: "Nueva York", slug: "nueva-york", country: "EE.UU.", emoji: "🗽", image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop", rating: 4.7 },
+  { name: "Lisboa", slug: "lisboa", country: "Portugal", emoji: "🚋", image: "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=600&h=400&fit=crop", rating: 4.6 },
 ];
 
 const testimonials = [
@@ -234,7 +234,7 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
               >
-                <Link href={`/hoteles/${dest.name.toLowerCase()}`}>
+                <Link href={`/hoteles/${dest.slug}`}>
                   <div className="group relative h-72 overflow-hidden rounded-2xl">
                     <img
                       src={dest.image}
@@ -246,6 +246,10 @@ export default function HomePage() {
                       <span className="mb-1 block text-2xl">{dest.emoji}</span>
                       <h3 className="text-xl font-bold">{dest.name}</h3>
                       <p className="text-sm text-gray-300">{dest.country}</p>
+                      <div className="mt-1 flex items-center gap-1">
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        <span className="text-xs text-gray-200">{dest.rating}</span>
+                      </div>
                     </div>
                     <div className="absolute right-4 top-4 opacity-0 transition-opacity group-hover:opacity-100">
                       <ArrowRight className="h-6 w-6 text-white" />

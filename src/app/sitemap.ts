@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       take: 100,
     });
     hotelPages = hotels.map((hotel) => ({
-      url: `${BASE_URL}/hotel/${hotel.slug}`,
+      url: `${BASE_URL}/hoteles/${hotel.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
