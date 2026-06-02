@@ -2,13 +2,40 @@
   "framework": "nextjs",
   "buildCommand": "npm run vercel-build",
   "installCommand": "npm install",
+  "regions": ["iad1"],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
   "env": {
-    "DATABASE_URL": "@database-url",
-    "OPENAI_API_KEY": "@openai-api-key",
-    "NEXTAUTH_SECRET": "@nextauth-secret",
-    "GOOGLE_CLIENT_ID": "@google-client-id",
-    "GOOGLE_CLIENT_SECRET": "@google-client-secret",
-    "NEXT_PUBLIC_APP_URL": "@next-public-app-url"
+    "NEXT_PUBLIC_APP_URL": "https://takeitrip.es"
   }
 }
-
