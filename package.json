@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prisma:generate": "prisma generate",
+    "migrate:deploy": "prisma migrate deploy",
+    "vercel-build": "node ./scripts/vercel-build.js",
     "start": "next start",
     "lint": "eslint"
   },

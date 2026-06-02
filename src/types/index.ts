@@ -1,3 +1,37 @@
+export interface DestinationNeighborhood {
+  name: string;
+  description: string;
+  highlights: string[];
+  vibe: string;
+}
+
+export interface Destination {
+  name: string;
+  slug: string;
+  country: string;
+  region: string;
+  short: string;
+  description: string;
+  intro: string;
+  culture: string;
+  gastronomy: string;
+  tips: string[];
+  neighborhoods: DestinationNeighborhood[];
+  highlights: string[];
+  priceRange: string;
+  image: string;
+  gallery: string[];
+  badge?: string;
+  rating: number;
+  bestTime: string;
+  bestMonths: string[];
+  language: string;
+  currency: string;
+  timezone: string;
+  relatedSlugs: string[];
+  faqs: { q: string; a: string }[];
+}
+
 export interface Hotel {
   id?: string;
   name: string;

@@ -3,17 +3,40 @@ import Link from "next/link";
 import { MapPin, ArrowRight, Star, TrendingUp, Globe, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Destinos y Zonas Recomendadas",
+  title: "Zonas y Guías de Destinos — Blog de viajes | Takeitrip",
   description:
-    "Explora los mejores destinos de Europa y el mundo. Guías de barrios, precios medios y recomendaciones de hoteles por inteligencia artificial.",
+    "Guías de zonas y destinos: barrios recomendados, precios medios y consejos prácticos para reservar hoteles. Contenido creado para ayudarte a elegir la mejor zona según tu plan de viaje.",
+  keywords: [
+    "destinos",
+    "zonas",
+    "guía de viajes",
+    "hoteles",
+    "barrios",
+    "Takeitrip",
+  ],
   openGraph: {
-    title: "Destinos y Zonas Recomendadas | Takeitrip",
+    title: "Zonas y Guías de Destinos | Takeitrip",
     description:
-      "Descubre los mejores destinos y zonas para alojarte. Guías completas con precios, barrios y recomendaciones de hoteles.",
+      "Guías detalladas sobre zonas y barrios para alojarte: precios, puntos de interés y recomendaciones de hoteles.",
     type: "website",
+    images: [
+      {
+        url: "https://takeitrip.es/og/destinos.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Destinos y zonas recomendadas - Takeitrip",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zonas y Guías de Destinos | Takeitrip",
+    description:
+      "Guías y recomendaciones de zonas para alojarte: precios, barrios y hoteles.",
+    images: ["https://takeitrip.es/og/destinos.jpg"],
   },
   alternates: {
-    canonical: "/destinos",
+    canonical: "https://takeitrip.es/destinos",
   },
 };
 
@@ -240,17 +263,36 @@ const destinations: Destination[] = [
 const regions = [...new Set(destinations.map((d) => d.region))];
 
 function StructuredData() {
-  const schema = {
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+          item: "https://takeitrip.es/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Destinos",
+        item: "https://takeitrip.es/destinos",
+      },
+    ],
+  };
+
+  const collection = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Destinos y Zonas Recomendadas | Takeitrip",
+    name: "Zonas y Guías de Destinos | Takeitrip",
     description:
-      "Explora los mejores destinos de Europa y el mundo. Guías de barrios, precios medios y recomendaciones de hoteles por inteligencia artificial.",
-    url: "https://takeitrip.com/destinos",
+      "Guías de zonas y barrios para alojarte: precios, puntos de interés y recomendaciones de hoteles.",
+    url: "https://takeitrip.es/destinos",
     publisher: {
       "@type": "Organization",
       name: "Takeitrip",
-      url: "https://takeitrip.com",
+      url: "https://takeitrip.es",
     },
     mainEntity: {
       "@type": "ItemList",
@@ -258,10 +300,10 @@ function StructuredData() {
         "@type": "ListItem",
         position: index + 1,
         item: {
-          "@type": "Hotel",
-          name: `Hoteles en ${dest.name}`,
-          description: dest.description,
-          url: `https://takeitrip.com/hoteles/${dest.slug}`,
+          "@type": "TouristDestination",
+          name: dest.name,
+          description: dest.short,
+          url: `https://takeitrip.es/hoteles/${dest.slug}`,
         },
       })),
     },
@@ -308,7 +350,8 @@ function StructuredData() {
 
   return (
     <>
-      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
+      <script type="application/ld+json">{JSON.stringify(collection)}</script>
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
     </>
   );
@@ -326,25 +369,22 @@ export default function DestinosPage() {
           {destinations.length} destinos disponibles
         </div>
         <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-          Destinos y Zonas Recomendadas
+          Zonas y Guías de Destinos
         </h1>
-        <p className="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-400">
-          Seleccionamos y analizamos barrios, rangos de precios y ventajas para que elijas la mejor zona y el hotel ideal con la ayuda de IA.
-        </p>
-        <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-          <div className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            <span>Hoteles verificados</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <TrendingUp className="h-4 w-4" />
-            <span>Precios actualizados</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Star className="h-4 w-4" />
-            <span>Recomendaciones IA</span>
-          </div>
+
+        <div className="mx-auto mb-4 max-w-3xl text-sm text-gray-500 dark:text-gray-400">
+          Publicado por <strong>Takeitrip Editorial</strong> • Última actualización: 01/06/2026
         </div>
+
+        <p className="mx-auto mb-4 max-w-3xl text-lg text-gray-600 dark:text-gray-400 prose">
+          En esta guía tipo blog encontrarás análisis por zonas y barrios, rangos de precio orientativos y recomendaciones prácticas para elegir el hotel ideal según tu estilo de viaje. Usamos datos actualizados y procesos automáticos de IA para identificar las mejores áreas donde alojarte, desde barrios céntricos hasta zonas con mejor relación calidad-precio.
+        </p>
+
+        <p className="mx-auto max-w-3xl text-sm text-gray-500 dark:text-gray-400">
+          <span className="mr-4"> <Shield className="inline h-4 w-4" /> Hoteles verificados</span>
+          <span className="mr-4"> <TrendingUp className="inline h-4 w-4" /> Precios actualizados</span>
+          <span> <Star className="inline h-4 w-4" /> Recomendaciones IA</span>
+        </p>
       </div>
 
       {/* Region Filters */}
@@ -368,12 +408,14 @@ export default function DestinosPage() {
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {regionDestinations.map((dest) => (
-                <Link
-                  key={dest.slug}
-                  href={`/hoteles/${dest.slug}`}
-                  className="group block"
-                >
-                  <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 dark:border-gray-800 dark:bg-gray-900">
+                <Link key={dest.slug} href={`/hoteles/${dest.slug}`} className="group block">
+                  <article
+                    itemScope
+                    itemType="https://schema.org/TouristDestination"
+                    className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 dark:border-gray-800 dark:bg-gray-900"
+                  >
+                    <meta itemProp="name" content={dest.name} />
+                    <meta itemProp="url" content={`https://takeitrip.es/hoteles/${dest.slug}`} />
                     {/* Image */}
                     <div className="relative h-52 overflow-hidden">
                       <img
@@ -385,7 +427,7 @@ export default function DestinosPage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-xl font-bold">{dest.name}</h3>
+                          <h3 itemProp="name" className="text-xl font-bold">{dest.name}</h3>
                           {dest.badge && (
                             <span className="rounded-full bg-blue-500/90 px-2.5 py-0.5 text-xs font-medium backdrop-blur-sm">
                               {dest.badge}
@@ -402,7 +444,7 @@ export default function DestinosPage() {
 
                     {/* Content */}
                     <div className="p-5">
-                      <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
+                      <p itemProp="description" className="mb-3 text-sm text-gray-600 dark:text-gray-400">
                         {dest.short}
                       </p>
 
@@ -434,7 +476,7 @@ export default function DestinosPage() {
                         Mejor época: {dest.bestTime}
                       </p>
                     </div>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>

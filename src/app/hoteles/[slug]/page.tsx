@@ -193,11 +193,11 @@ export default async function HotelPage({ params }: HotelPageProps) {
     "@type": "CollectionPage",
     name: `Hoteles en ${displayName}`,
     description: cityInfo.content,
-    url: `https://takeitrip.com/hoteles/${slug}`,
+    url: `https://takeitrip.es/hoteles/${slug}`,
     publisher: {
       "@type": "Organization",
       name: "Takeitrip",
-      url: "https://takeitrip.com",
+      url: "https://takeitrip.es",
     },
   };
 
