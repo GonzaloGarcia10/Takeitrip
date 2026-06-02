@@ -480,22 +480,7 @@ export default function DestinosPage() {
             Información actualizada y consejos de expertos para planificar tu próximo viaje.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-8 text-sm text-white/40"
-          >
-            <span className="flex items-center gap-2">
-              <Eye className="h-4 w-4 text-blue-400" /> Qué ver
-            </span>
-            <span className="flex items-center gap-2">
-              <Utensils className="h-4 w-4 text-orange-400" /> Gastronomía
-            </span>
-            <span className="flex items-center gap-2">
-              <Camera className="h-4 w-4 text-green-400" /> Actividades
-            </span>
-          </motion.div>
+          
         </header>
 
         {regions.map((region) => {
