@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, ArrowRight, Star, Globe, ChevronRight, Home } from "lucide-react";
+import { MapPin, ArrowRight, Star, Globe, ChevronRight, Home, MessageSquare } from "lucide-react";
 
 interface Destination {
   name: string;
