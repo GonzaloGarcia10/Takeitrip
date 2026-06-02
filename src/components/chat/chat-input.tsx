@@ -3,7 +3,6 @@
 import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, Square } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 interface ChatInputProps {
@@ -36,44 +35,39 @@ export function ChatInput({ input, setInput, onSend, onStop, isLoading }: ChatIn
   };
 
   return (
-    <div className="border-t border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
-      <div className="mx-auto max-w-3xl">
-        <div className="relative flex items-end gap-2 rounded-2xl border border-gray-300 bg-white p-2 shadow-sm transition-all focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900">
-          <Textarea
-            ref={textareaRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ej: Quiero un hotel barato en París..."
-            className="min-h-[44px] max-h-[200px] resize-none border-0 bg-transparent p-2 text-sm focus-visible:ring-0 focus-visible:ring-offset-0 dark:text-white"
-            rows={1}
-          />
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            {isLoading ? (
-              <Button
-                size="icon"
-                onClick={onStop}
-                variant="destructive"
-                className="h-10 w-10 shrink-0 rounded-xl"
-              >
-                <Square className="h-4 w-4" />
-              </Button>
-            ) : (
-              <Button
-                size="icon"
-                onClick={onSend}
-                disabled={!input.trim()}
-                className="h-10 w-10 shrink-0 rounded-xl"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            )}
-          </motion.div>
-        </div>
-        <p className="mt-2 text-center text-xs text-gray-500 dark:text-gray-400">
-          Presiona Enter para enviar, Shift+Enter para nueva línea
-        </p>
+    <div className="relative mx-auto max-w-4xl px-4 py-4 sm:px-6 lg:px-8">
+      <div className="relative flex items-end gap-3 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-xl p-2 transition-all focus-within:border-white/40">
+        <Textarea
+          ref={textareaRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Escribe tu mensaje..."
+          className="min-h-[48px] max-h-[200px] flex-1 resize-none border-0 bg-transparent p-3 text-sm text-white placeholder:text-white/30 focus-visible:ring-0 focus-visible:ring-offset-0"
+          rows={1}
+        />
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          {isLoading ? (
+            <button
+              onClick={onStop}
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg transition-all hover:shadow-red-500/25"
+            >
+              <Square className="h-4 w-4" />
+            </button>
+          ) : (
+            <button
+              onClick={onSend}
+              disabled={!input.trim()}
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <Send className="h-4 w-4" />
+            </button>
+          )}
+        </motion.div>
       </div>
+      <p className="mt-3 text-center text-xs text-white/30">
+        Presiona Enter para enviar, Shift+Enter para nueva línea
+      </p>
     </div>
   );
 }

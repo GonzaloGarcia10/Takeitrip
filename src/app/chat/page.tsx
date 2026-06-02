@@ -5,10 +5,11 @@ import { MessageBubble } from "@/components/chat/message-bubble";
 import { ChatInput } from "@/components/chat/chat-input";
 import { TypingIndicator } from "@/components/chat/typing-indicator";
 import { ChatWelcome } from "@/components/chat/chat-welcome";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Trash2, Plane } from "lucide-react";
+import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 export default function ChatPage() {
   const {
@@ -31,28 +32,40 @@ export default function ChatPage() {
   }, [messages, streamingMessage]);
 
   return (
-    <div className="flex h-[calc(100vh-64px)] flex-col">
+    <div className="flex h-[calc(100vh-64px)] flex-col bg-black">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-950">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600">
-            <Plane className="h-5 w-5 text-white" />
+      <div className="relative border-b border-white/10">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10" />
+        <div className="relative mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-4">
+            <motion.div
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 shadow-lg shadow-purple-500/25"
+            >
+              <Plane className="h-6 w-6 text-white" />
+            </motion.div>
+            <div>
+              <h1 className="text-lg font-bold text-white">
+                Takeitrip Assistant
+              </h1>
+              <p className="text-sm text-white/50">
+                Asistente de viajes con IA
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-sm font-semibold text-gray-900 dark:text-white">
-              Takeitrip Assistant
-            </h1>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              Asistente de viajes inteligente
-            </p>
-          </div>
+          {messages.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={clearMessages}
+              className="text-white/50 hover:text-white hover:bg-white/10"
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Nueva conversación
+            </Button>
+          )}
         </div>
-        {messages.length > 0 && (
-          <Button variant="ghost" size="sm" onClick={clearMessages}>
-            <Trash2 className="mr-2 h-4 w-4" />
-            Nueva conversación
-          </Button>
-        )}
       </div>
 
       {/* Messages */}
@@ -60,33 +73,38 @@ export default function ChatPage() {
         {messages.length === 0 && !streamingMessage ? (
           <ChatWelcome onSuggestion={(text) => sendMessage(text)} />
         ) : (
-          <div className="mx-auto max-w-3xl">
-            {messages.map((message) => (
-              <MessageBubble key={message.id} message={message} />
-            ))}
-            {streamingMessage && (
-              <MessageBubble
-                message={{
-                  id: "streaming",
-                  role: "assistant",
-                  content: streamingMessage,
-                  createdAt: new Date(),
-                }}
-              />
-            )}
-            {isLoading && !streamingMessage && <TypingIndicator />}
+          <div className="mx-auto max-w-4xl">
+            <div className="px-4 py-8 sm:px-6">
+              {messages.map((message) => (
+                <MessageBubble key={message.id} message={message} />
+              ))}
+              {streamingMessage && (
+                <MessageBubble
+                  message={{
+                    id: "streaming",
+                    role: "assistant",
+                    content: streamingMessage,
+                    createdAt: new Date(),
+                  }}
+                />
+              )}
+              {isLoading && !streamingMessage && <TypingIndicator />}
+            </div>
           </div>
         )}
       </div>
 
       {/* Input */}
-      <ChatInput
-        input={input}
-        setInput={setInput}
-        onSend={() => sendMessage()}
-        onStop={stopStreaming}
-        isLoading={isLoading}
-      />
+      <div className="relative border-t border-white/10">
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
+        <ChatInput
+          input={input}
+          setInput={setInput}
+          onSend={() => sendMessage()}
+          onStop={stopStreaming}
+          isLoading={isLoading}
+        />
+      </div>
     </div>
   );
 }
