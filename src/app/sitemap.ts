@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
-import { prisma } from "@/lib/prisma";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const BASE_URL = "https://takeitrip.es";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
@@ -12,8 +11,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const destinations = [
     "paris", "roma", "bruselas", "tokio", "nueva-york",
-    "barcelona", "seul", "amsterdam", "londres", "berlin",
-    "praga", "viena", "lisboa", "atenas", "estambul",
+    "barcelona", "amsterdam", "londres", "berlin",
+    "praga", "viena", "lisboa",
   ];
 
   const destinationPages = destinations.map((dest) => ({
@@ -23,22 +22,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  let hotelPages: { url: string; lastModified: Date; changeFrequency: "monthly"; priority: number }[] = [];
-  try {
-    const hotels = await prisma.hotel.findMany({
-      where: { isActive: true },
-      select: { slug: true },
-      take: 100,
-    });
-    hotelPages = hotels.map((hotel) => ({
-      url: `${BASE_URL}/hoteles/${hotel.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
-  } catch {
-    // Prisma not connected, skip dynamic pages
-  }
-
-  return [...staticPages, ...destinationPages, ...hotelPages];
+  return [...staticPages, ...destinationPages];
 }
