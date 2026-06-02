@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MessageSquare,
   Hotel,
@@ -236,10 +237,13 @@ export default function HomePage() {
               >
                 <Link href={`/hoteles/${dest.slug}`}>
                   <div className="group relative h-72 overflow-hidden rounded-2xl">
-                    <img
+                    <Image
                       src={dest.image}
                       alt={`Hoteles en ${dest.name}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      priority={index < 3}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     <div className="absolute bottom-4 left-4 text-white">
