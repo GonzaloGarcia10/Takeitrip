@@ -68,12 +68,14 @@ export function ChatWelcome({ onSuggestion }: ChatWelcomeProps) {
             {suggestions.map((s, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => onSuggestion(s.query)}
+                aria-label={s.label}
                 className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-white/60 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white"
               >
-                <s.icon className="h-4 w-4 shrink-0 text-blue-400" />
+                <s.icon className="h-4 w-4 shrink-0 text-blue-400" aria-hidden="true" />
                 {s.label}
-                <ArrowRight className="ml-auto h-4 w-4 text-white/30" />
+                <ArrowRight className="ml-auto h-4 w-4 text-white/30" aria-hidden="true" />
               </button>
             ))}
           </div>
@@ -88,6 +90,7 @@ export function ChatWelcome({ onSuggestion }: ChatWelcomeProps) {
               <Link
                 key={dest.slug}
                 href={`/hoteles/${dest.slug}`}
+                aria-label={`Ver hoteles en ${dest.name}`}
                 className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/60 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white"
               >
                 {dest.name}

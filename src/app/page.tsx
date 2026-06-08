@@ -19,10 +19,14 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import dynamic from "next/dynamic";
+import { destinations as allDestinations } from "@/lib/destinations";
+
+const StatsClient = dynamic(() => import("@/components/StatsClient"), { ssr: false });
 
 const stats = [
   { value: "50K+", label: "Hoteles" },
-  { value: "12", label: "Destinos" },
+  { value: "100 +", label: "Destinos" },
   { value: "4.8", label: "Puntuación media" },
 ];
 
@@ -49,40 +53,10 @@ const features = [
   },
 ];
 
-const destinations = [
-  {
-    name: "París",
-    slug: "paris",
-    country: "Francia",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop",
-    rating: 4.8,
-    priceRange: "120€ - 220€",
-  },
-  {
-    name: "Roma",
-    slug: "roma",
-    country: "Italia",
-    image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=400&fit=crop",
-    rating: 4.7,
-    priceRange: "70€ - 180€",
-  },
-  {
-    name: "Barcelona",
-    slug: "barcelona",
-    country: "España",
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&h=400&fit=crop",
-    rating: 4.6,
-    priceRange: "80€ - 200€",
-  },
-  {
-    name: "Londres",
-    slug: "londres",
-    country: "Reino Unido",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=400&fit=crop",
-    rating: 4.7,
-    priceRange: "120€ - 280€",
-  },
-];
+const destinations = [...allDestinations]
+  .filter((d) => d.type === "city")
+  .sort((a, b) => b.rating - a.rating)
+  .slice(0, 8);
 
 const testimonials = [
   {
@@ -179,20 +153,8 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-8"
-            >
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-2xl font-bold text-white sm:text-3xl">{stat.value}</div>
-                  <div className="text-sm text-white/40">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
+            {/* Stats (client-only to avoid hydration mismatch) */}
+            <StatsClient stats={stats} />
           </div>
         </section>
 

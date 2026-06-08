@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { destinations } from "@/lib/destinations";
 
 const BASE_URL = "https://takeitrip.es";
 
@@ -9,18 +10,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/destinos`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
   ];
 
-  const destinations = [
-    "paris", "roma", "bruselas", "tokio", "nueva-york",
-    "barcelona", "amsterdam", "londres", "berlin",
-    "praga", "viena", "lisboa",
-  ];
-
-  const destinationPages = destinations.map((dest) => ({
-    url: `${BASE_URL}/hoteles/${dest}`,
+  const destPages = destinations.map((d) => ({
+    url: `${BASE_URL}/destinos/${d.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: 0.8,
+    priority: d.type === "country" ? 0.8 : 0.9,
   }));
 
-  return [...staticPages, ...destinationPages];
+  const hotelPages = destinations
+    .filter((d) => d.type === "city")
+    .map((d) => ({
+      url: `${BASE_URL}/hoteles/${d.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+
+  return [...staticPages, ...destPages, ...hotelPages];
 }
