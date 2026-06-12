@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createQdiv0Stream, Qdiv0Message } from "@/lib/qdiv0";
-import { prisma } from "@/lib/prisma";
+import { Qdiv0Message } from "@/lib/qdiv0";
 import {
   searchActivitiesByText,
   searchActivitiesByCoordinates,
@@ -153,39 +152,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    let conversationId = incomingConversationId as string | undefined;
-    if (!conversationId) {
-      try {
-        const created = await prisma.conversation.create({
-          data: {
-            title:
-              title ||
-              (messages[messages.length - 1]?.content || "Nueva conversación").slice(
-                0,
-                120
-              ),
-          },
-        });
-        conversationId = created.id;
-      } catch (dbErr) {
-        console.warn("Database unavailable, using temp conversation ID");
-        conversationId = `temp_${Date.now()}`;
-      }
-    }
-
-    if (lastMsg) {
-      try {
-        await prisma.message.create({
-          data: {
-            conversationId,
-            role: lastMsg.role || "user",
-            content: lastMsg.content || "",
-          },
-        });
-      } catch (dbErr) {
-        console.warn("Database unavailable, skipping message save");
-      }
-    }
+    const conversationId = `chat_${Date.now()}`;
 
     const encoder = new TextEncoder();
 
@@ -303,37 +270,6 @@ export async function POST(request: NextRequest) {
           }
 
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-
-          const cleanContent = fullContent.replace(toolCallRegex, "").trim();
-
-          try {
-            await prisma.message.create({
-              data: {
-                conversationId,
-                role: "assistant",
-                content: cleanContent,
-              },
-            });
-          } catch (e) {
-            console.warn("Database unavailable, skipping assistant message save");
-          }
-
-          try {
-            const hotelRegex = /```hotels\n([\s\S]*?)\n```/;
-            const match = cleanContent.match(hotelRegex);
-            if (match) {
-              const hotels = JSON.parse(match[1]);
-              await prisma.search.create({
-                data: {
-                  query: lastMsg?.content || "",
-                  city: hotels?.[0]?.city || null,
-                  results: hotels || undefined,
-                },
-              });
-            }
-          } catch (e) {
-            console.warn("Database unavailable, skipping hotel search save");
-          }
         } catch (err) {
           console.error("Streaming error:", err);
           controller.error(err);
