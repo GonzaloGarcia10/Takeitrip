@@ -37,7 +37,7 @@ export default function ChatPage() {
 
   return (
     <div className="flex h-[calc(100vh-64px)] flex-col bg-black">
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-purple-950/10 to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-purple-950/10 to-black pointer-events-none" />
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto">
         {messages.length === 0 && !streamingMessage ? (
