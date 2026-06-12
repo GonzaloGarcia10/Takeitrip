@@ -81,28 +81,37 @@ export async function POST(request: NextRequest) {
 
     let conversationId = incomingConversationId as string | undefined;
     if (!conversationId) {
-      const created = await prisma.conversation.create({
-        data: {
-          title:
-            title ||
-            (messages[messages.length - 1]?.content || "Nueva conversación").slice(
-              0,
-              120
-            ),
-        },
-      });
-      conversationId = created.id;
+      try {
+        const created = await prisma.conversation.create({
+          data: {
+            title:
+              title ||
+              (messages[messages.length - 1]?.content || "Nueva conversación").slice(
+                0,
+                120
+              ),
+          },
+        });
+        conversationId = created.id;
+      } catch (dbErr) {
+        console.warn("Database unavailable, using temp conversation ID");
+        conversationId = `temp_${Date.now()}`;
+      }
     }
 
     const lastMsg = messages[messages.length - 1];
     if (lastMsg) {
-      await prisma.message.create({
-        data: {
-          conversationId,
-          role: lastMsg.role || "user",
-          content: lastMsg.content || "",
-        },
-      });
+      try {
+        await prisma.message.create({
+          data: {
+            conversationId,
+            role: lastMsg.role || "user",
+            content: lastMsg.content || "",
+          },
+        });
+      } catch (dbErr) {
+        console.warn("Database unavailable, skipping message save");
+      }
     }
 
     const model = process.env.OPENAI_MODEL || "gpt-4o";
@@ -220,29 +229,37 @@ export async function POST(request: NextRequest) {
 
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
 
-          await prisma.message.create({
-            data: {
-              conversationId,
-              role: "assistant",
-              content: fullContent,
-            },
-          });
+          try {
+            await prisma.message.create({
+              data: {
+                conversationId,
+                role: "assistant",
+                content: fullContent,
+              },
+            });
+          } catch (e) {
+            console.warn("Database unavailable, skipping assistant message save");
+          }
 
           try {
             const hotelRegex = /```hotels\n([\s\S]*?)\n```/;
             const match = fullContent.match(hotelRegex);
             if (match) {
               const hotels = JSON.parse(match[1]);
-              await prisma.search.create({
-                data: {
-                  query: lastMsg?.content || "",
-                  city: hotels?.[0]?.city || null,
-                  results: hotels || undefined,
-                },
-              });
+              try {
+                await prisma.search.create({
+                  data: {
+                    query: lastMsg?.content || "",
+                    city: hotels?.[0]?.city || null,
+                    results: hotels || undefined,
+                  },
+                });
+              } catch (dbErr) {
+                console.warn("Database unavailable, skipping search save");
+              }
             }
           } catch (e) {
-            // ignore parse errors
+            // ignore JSON parse errors
           }
         } catch (err) {
           console.error("Streaming error:", err);

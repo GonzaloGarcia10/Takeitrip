@@ -25,7 +25,7 @@ export default function ChatPage() {
     streamingMessage,
     sendMessage,
     stopStreaming,
-  } = useChat("qdiv0");
+  } = useChat("openai");
 
   const scrollRef = useRef<HTMLDivElement>(null);
 

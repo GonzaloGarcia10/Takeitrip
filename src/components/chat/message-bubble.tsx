@@ -12,13 +12,35 @@ interface MessageBubbleProps {
 }
 
 export function MessageBubble({ message }: MessageBubbleProps) {
-  const [copied, setCopied] = React.useState(false);
+  const [copied, setCopied] = React.useState<string | null>(null);
   const isUser = message.role === "user";
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(message.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    const text = message.content;
+    if (!text) return;
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+
+    try {
+      document.execCommand("copy");
+    } catch {
+      try {
+        navigator.clipboard.writeText(text);
+      } catch {
+        return;
+      }
+    }
+
+    document.body.removeChild(textarea);
+    setCopied(message.id);
+    setTimeout(() => setCopied(null), 2000);
   };
 
   return (
@@ -51,15 +73,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         <div className="prose prose-sm max-w-none dark:prose-invert prose-p:text-white/90 prose-li:text-white/90 prose-strong:text-white prose-code:text-blue-400 prose-code:bg-white/10 prose-code:rounded prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-a:text-blue-400">
           <ReactMarkdown>{message.content}</ReactMarkdown>
         </div>
-        {!isUser && (
-          <button
-            onClick={handleCopy}
-            className="flex items-center gap-1.5 text-xs text-white/30 transition-colors hover:text-white/60"
-          >
-            {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-            <span>{copied ? "Copiado" : "Copiar"}</span>
-          </button>
-        )}
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-1.5 text-xs text-white/30 transition-colors hover:text-white/60"
+        >
+          {copied === message.id ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+          <span>{copied === message.id ? "Copiado" : "Copiar"}</span>
+        </button>
       </div>
     </motion.div>
   );

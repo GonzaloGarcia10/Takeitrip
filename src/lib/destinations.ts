@@ -21,6 +21,11 @@ export interface DestinationData {
   keywords: string[];
   cities?: string[];
   parentSlug?: string;
+  transport?: string;
+  travelTips?: string[];
+  neighborhoods?: { name: string; desc: string }[];
+  dayTrips?: string[];
+  budget?: string;
 }
 
 const base: Omit<DestinationData, "type" | "slug" | "name" | "short" | "description" | "whatToSee" | "gastronomy" | "activities" | "priceRange" | "image" | "rating" | "bestTime" | "avgFlightPrice" | "readTime" | "keywords"> = {
@@ -81,6 +86,16 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "60€",
     readTime: "7 min",
     keywords: ["hoteles en Barcelona", "dónde dormir en Barcelona", "hoteles playa Barcelona", "hoteles Barcelona centro"],
+    transport: "Metro eficiente (TMB) con 8 líneas que cubren toda la ciudad. También hay buses, tranvía y el aeropuerto conecta por tren y autobús. El taxi cuesta unos 25-35€ del aeropuerto al centro.",
+    travelTips: ["Evita las horas punta en metro (8-9h y 18-19h)", "Compra la tarjeta T-Casual para 10 viajes (mejor que billete sencillo)", "Cuidado con carteristas en La Rambla y metro", "Muchos museos tienen entrada gratis los domingos", "El tiempo es impredecible, lleva siempre un jersey"],
+    neighborhoods: [
+      { name: "Eixample", desc: "La zona más elegante con edificios modernistas y amplias avenidas. Ideal para alojarse." },
+      { name: "Barrio Gótico", desc: "El casco histórico con calles medievales, plazas escondidas y ambiente turístico." },
+      { name: "El Born", desc: "Bohemio y trendy, con galerías de arte, boutiques y los mejores bares de tapas." },
+      { name: "Barceloneta", desc: "Barrio marinero junto a la playa, ideal para amantes del mar y el pescado fresco." },
+    ],
+    dayTrips: ["Montserrat - Monasterio benedictino a 1h en tren", "Sitges - Pueblo costero con playas y ambiente festivo", "Costa Brava - Calas escondidas y paisajes espectaculares"],
+    budget: "Viaje económico: 70€/día (hostal + menú del día). Gama media: 140€/día (hotel 3* + restaurante). Lujo: 300€+/día (hotel 5* + cena en restaurante Michelin).",
   },
   {
     type: "city",
@@ -104,6 +119,16 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "50€",
     readTime: "7 min",
     keywords: ["hoteles en Madrid", "dónde dormir en Madrid", "hoteles Madrid centro", "hoteles baratos Madrid"],
+    transport: "Metro de Madrid (12 líneas) es el mejor medio. También hay Cercanías, autobuses urbanos (EMT) y el aeropuerto conecta por metro (línea 8). Taxi desde aeropuerto unos 30€.",
+    travelTips: ["El metro funciona hasta la 1:30h, los fines de semana hay servicio nocturno", "Sol y Plaza Mayor son el centro neurálgico, perfecto para empezar", "Los museos como el Prado son gratis de 18:00 a 20:00h", "El barrio de La Latina es ideal para tapear", "Lleva efectivo, algunos bares pequeños no aceptan tarjeta"],
+    neighborhoods: [
+      { name: "Sol y Centro", desc: "El corazón de Madrid con la Puerta del Sol, Plaza Mayor y Gran Vía." },
+      { name: "Malasaña", desc: "Barrio alternativo con tiendas vintage, bares de moda y ambiente joven." },
+      { name: "La Latina", desc: "El mejor barrio para tapear, con callejuelas llenas de bares y tabernas." },
+      { name: "Salamanca", desc: "Zona elegante con tiendas de lujo, restaurantes sofisticados y embajadas." },
+    ],
+    dayTrips: ["Toledo - Ciudad imperial a 30min en tren AVE", "Segovia - Acueducto romano y Alcázar a 1h", "El Escorial - Monasterio y palacio real a 45min"],
+    budget: "Económico: 65€/día. Medio: 130€/día. Lujo: 280€+/día.",
   },
   {
     type: "city",
@@ -126,6 +151,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "55€",
     readTime: "6 min",
     keywords: ["hoteles en Sevilla", "dónde dormir en Sevilla", "hoteles Sevilla centro", "hoteles Sevilla baratos"],
+    transport: "Sevilla tiene tranvía (Metrocentro) y autobuses urbanos (Tussam). El aeropuerto conecta por autobús (EA) cada 30min. Andando se llega a casi todo en el centro.",
+    travelTips: ["Visita la Giralda y la Catedral temprano para evitar colas", "El Barrio de Santa Cruz es perfecto para perderse sin mapa", "Prueba las tapas en la calle Betis de Triana", "El Alcázar tiene colas de hasta 2h, reserva online", "Lleva calzado cómodo, las calles son adoquinadas"],
+    neighborhoods: [
+      { name: "Santa Cruz", desc: "El barrio judío con estrechas callejuelas llenas de flores y patios." },
+      { name: "Triana", desc: "Barrio marinero al otro lado del río, cuna del flamenco y las cerámicas." },
+      { name: "Centro", desc: "Alrededor de la Catedral, con tiendas y restaurantes turísticos." },
+    ],
+    dayTrips: ["Itálica - Ruinas romanas a 20min", "Ronda - Ciudad del Tajo a 1.5h", "Jerez - Vino y caballos a 1h"],
+    budget: "Económico: 55€/día. Medio: 110€/día. Lujo: 250€+/día.",
   },
   {
     type: "city",
@@ -148,6 +182,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "50€",
     readTime: "6 min",
     keywords: ["hoteles en Valencia", "dónde dormir en Valencia", "hoteles Valencia centro", "hoteles playa Valencia"],
+    transport: "Metro (6 líneas) y autobuses (EMT) conectan toda la ciudad. El aeropuerto conecta por metro (línea 3) en 20min. Hay carril bici por toda la ciudad.",
+    travelTips: ["La Ciudad de las Artes se ve mejor al atardecer", "La playa de la Malvarrosa está a 15min en bici del centro", "El Mercado Central cierra los domingos", "Prueba la paella auténtica en El Cabanyal", "El Jardín del Turia es perfecto para pasear o ir en bici"],
+    neighborhoods: [
+      { name: "Ciutat Vella", desc: "El casco histórico con la Catedral, la Lonja y el Mercado Central." },
+      { name: "El Carmen", desc: "Barrio alternativo con arte urbano, galerías y bares de copas." },
+      { name: "Ruzafa", desc: "Barrio de moda con restaurantes trendy, mercadillos y ambiente cultural." },
+    ],
+    dayTrips: ["Albufera - Parque natural y arrozales a 20min", "Xàtiva - Ciudad histórica a 1h", "Peñíscola - Castillo templario a 1.5h"],
+    budget: "Económico: 50€/día. Medio: 100€/día. Lujo: 220€+/día.",
   },
   {
     type: "city",
@@ -171,6 +214,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "60€",
     readTime: "6 min",
     keywords: ["hoteles en Granada", "dónde dormir en Granada", "hoteles Granada centro", "hoteles baratos Granada"],
+    transport: "Granada tiene autobuses urbanos y un metro ligero. El aeropuerto conecta por autobús (Granada Airport Bus). La Alhambra se alcanza andando desde el centro pero la cuesta es pronunciada.",
+    travelTips: ["Reserva la Alhambra con 2-3 semanas de antelación, se agota rápido", "Las tapas gratis con cada bebida son tradición en Granada", "El mirador de San Nicolás tiene las mejores vistas de la Alhambra al atardecer", "El Albaicín tiene calles muy empinadas, lleva calzado cómodo", "En invierno se puede esquiar en Sierra Nevada a 30min"],
+    neighborhoods: [
+      { name: "Albaicín", desc: "Barrio árabe con calles estrechas, miradores espectaculares y ambiente único." },
+      { name: "Centro", desc: "Alrededor de la Catedral con tiendas, restaurantes y vida nocturna." },
+      { name: "Realejo", desc: "Antiguo barrio judío, ahora lleno de arte urbano y bares alternativos." },
+    ],
+    dayTrips: ["Sierra Nevada - Esquí o senderismo a 30min", "La Alpujarra - Pueblos blancos a 1h"],
+    budget: "Económico: 45€/día (tapas gratis incluido). Medio: 90€/día. Lujo: 200€+/día.",
   },
   {
     type: "city",
@@ -193,6 +245,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "65€",
     readTime: "6 min",
     keywords: ["hoteles en Bilbao", "dónde dormir en Bilbao", "hoteles Bilbao centro", "hoteles baratos Bilbao"],
+    transport: "Metro de Bilbao limpio y eficiente (3 líneas). También hay tranvía y funicular a Artxanda. El aeropuerto conecta por autobús (Bizkaibus) cada 20min.",
+    travelTips: ["El Guggenheim se ve impresionante desde el Puente de La Salve", "Los pintxos en el Casco Viejo son obligatorios, prueba en la Plaza Nueva", "El tranvía es gratis si tienes billete de metro", "El Mercado de la Ribera es el mercado cubierto más grande de Europa", "San Juan de Gaztelugatxe requiere caminata de 30min cuesta arriba"],
+    neighborhoods: [
+      { name: "Casco Viejo", desc: "Las Siete Calles con bares de pintxos, tiendas y la Catedral de Santiago." },
+      { name: "Indautxu", desc: "Zona moderna con tiendas, restaurantes y la plaza Moyúa." },
+      { name: "Abandoibarra", desc: "Zona del Guggenheim con arquitectura contemporánea y paseos junto a la ría." },
+    ],
+    dayTrips: ["San Juan de Gaztelugatxe - Ermita en un islote a 30min", "Rioja Alavesa - Bodegas y viñedos a 1h"],
+    budget: "Económico: 60€/día. Medio: 120€/día. Lujo: 260€+/día.",
   },
   {
     type: "city",
@@ -215,6 +276,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "50€",
     readTime: "6 min",
     keywords: ["hoteles en Málaga", "dónde dormir en Málaga", "hoteles playa Málaga", "hoteles centro Málaga"],
+    transport: "Aeropuerto muy bien conectado por Cercanías (12min al centro) y autobús. Metro de Málaga (2 líneas) y autobuses urbanos (EMT). Taxi del aeropuerto al centro unos 20€.",
+    travelTips: ["El Museo Picasso es gratis los domingos por la tarde", "Caminito del Rey hay que reservar con semanas de antelación", "Los espetos de sardinas son típicos en los chiringuitos de playa", "La Alcazaba tiene vistas espectaculares al puerto", "Málaga tiene más de 30 museos, muchos gratuitos"],
+    neighborhoods: [
+      { name: "Centro Histórico", desc: "La zona antigua con la Catedral, museos y calle Larios." },
+      { name: "La Malagueta", desc: "Junto a la playa más famosa, con chiringuitos y paseo marítimo." },
+      { name: "Soho", desc: "Barrio de arte urbano con galerías y restaurantes alternativos." },
+    ],
+    dayTrips: ["Ronda - Ciudad del Tajo y puente nuevo a 1.5h", "Caminito del Rey - Pasarela en acantilados a 1h"],
+    budget: "Económico: 50€/día. Medio: 100€/día. Lujo: 220€+/día.",
   },
   {
     type: "city",
@@ -238,6 +308,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "55€",
     readTime: "7 min",
     keywords: ["hoteles en Palma", "dónde dormir en Mallorca", "hoteles playa Palma", "hoteles Palma centro"],
+    transport: "Aeropuerto de Son Sant Joan conecta por autobús (A1) al centro. Buses urbanos (EMT) y tren a Sóller. Alquilar coche es la mejor opción para explorar la isla.",
+    travelTips: ["Alquila coche para ver calas escondidas, el transporte público no llega a todas", "La Catedral ilumina el mar al atardecer desde el Paseo Marítimo", "La Serra de Tramuntana es Patrimonio de la Humanidad y tiene rutas increíbles", "Evita agosto si buscas tranquilidad, es temporada alta", "Prueba la ensaimada en el Forn des Teatre"],
+    neighborhoods: [
+      { name: "Centro Histórico", desc: "Calles empedradas, Palacio Real y la Catedral como emblema." },
+      { name: "Santa Catalina", desc: "Barrio de moda con restaurantes, mercados y ambiente cosmopolita." },
+      { name: "Portixol", desc: "Zona portuaria con paseo marítimo, bares y vistas al mar." },
+    ],
+    dayTrips: ["Sóller - Tren histórico a través de la montaña", "Valldemossa - Pueblo de montaña con historia de Chopin", "Cala d'Or - Calas turquesas al este de la isla"],
+    budget: "Económico: 65€/día. Medio: 130€/día. Lujo: 280€+/día (temporada alta).",
   },
 
   // ── Francia ──
@@ -286,6 +365,16 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "150€",
     readTime: "8 min",
     keywords: ["hoteles en París", "dónde dormir en París", "barrios de París", "hoteles baratos París"],
+    transport: "Metro (16 líneas) cubre toda la ciudad. RER conecta aeropuertos y suburbios. Pase Navigo semanal por 30€. El taxi del aeropuerto al centro 50-60€ fijo.",
+    travelTips: ["El Museo del Louvre tiene entrada gratis el primer viernes de cada mes", "El metro cierra a la 1:15h, los fines de semana hasta las 2:15h", "Montmartre merece la visita al amanecer sin multitudes", "Los cafés en terrazas cuestan el doble que en el interior", "Para la Torre Eiffel, reserva online con 1 mes de antelación"],
+    neighborhoods: [
+      { name: "Le Marais", desc: "Barrio histórico judío, hoy lleno de boutiques, galerías y la mejor vida nocturna." },
+      { name: "Saint-Germain", desc: "Elegancia parisina con cafés míticos, librerías y tiendas de lujo." },
+      { name: "Montmartre", desc: "Barrio bohemio con el Sacré-Cœur, vistas panorámicas y ambiente de artista." },
+      { name: "Champs-Élysées", desc: "La avenida más famosa del mundo, con tiendas de lujo y el Arco de Triunfo." },
+    ],
+    dayTrips: ["Versalles - Palacio y jardines a 40min en RER", "Disneyland Paris - 45min en RER A"],
+    budget: "Económico: 90€/día. Medio: 180€/día. Lujo: 400€+/día.",
   },
   {
     type: "city",
@@ -308,6 +397,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "100€",
     readTime: "6 min",
     keywords: ["hoteles en Lyon", "dónde dormir en Lyon", "hoteles Lyon centro", "hoteles baratos Lyon"],
+    transport: "Metro (4 líneas), tranvía y funicular. Aeropuerto Lyon-Saint Exupéry conecta por tren Rhônexpress en 30min (16€). La ciudad es muy walkable.",
+    travelTips: ["El Festival de las Luces (8 diciembre) es espectacular pero hoteles se llenan meses antes", "Los bouchons son restaurantes típicos lyoneses, busca los auténticos con la etiqueta 'Bouchon Lyonnais'", "Vieux Lyon es ideal para perderse por sus traboules (pasajes secretos)", "El Museo de Bellas Artes es uno de los mejores de Francia"],
+    neighborhoods: [
+      { name: "Vieux Lyon", desc: "Barrio medieval con traboules, iglesias y restaurantes tradicionales." },
+      { name: "Presqu'île", desc: "Entre el Ródano y el Saona, con tiendas, teatros y la Place Bellecour." },
+      { name: "Croix-Rousse", desc: "Barrio de artistas con mercados al aire libre y vistas panorámicas." },
+    ],
+    dayTrips: ["Beaujolais - Ruta del vino a 30min", "Annecy - Venecia de los Alpes a 1.5h"],
+    budget: "Económico: 70€/día. Medio: 140€/día. Lujo: 300€+/día.",
   },
   {
     type: "city",
@@ -330,6 +428,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "90€",
     readTime: "6 min",
     keywords: ["hoteles en Marsella", "dónde dormir en Marsella", "hoteles Marsella centro", "hoteles baratos Marsella"],
+    transport: "Metro (2 líneas), tranvía y autobuses. Aeropuerto conecta por autobús (L91) en 30min. Ferris a Córcega y Argelia desde el Puerto Viejo.",
+    travelTips: ["Las Calanques son imprescindibles, mejor ir en kayak o barco", "El MUCEM es gratuito para menores de 26 años", "El barrio Le Panier es el más antiguo, ideal para callejear", "La bouillabaisse es el plato estrella pero pide precio antes de pedirla"],
+    neighborhoods: [
+      { name: "Le Panier", desc: "El barrio más antiguo con calles estrechas, arte callejero y galerías." },
+      { name: "Puerto Viejo", desc: "El puerto histórico con barcos de pesca, restaurantes de marisco y el MUCEM." },
+      { name: "Cours Julien", desc: "Barrio alternativo con grafitis, tiendas de diseño y bares de moda." },
+    ],
+    dayTrips: ["Calanques - Kayak o senderismo por calas turquesas", "Cassis - Pueblo pesquero y viñedos a 30min"],
+    budget: "Económico: 65€/día. Medio: 130€/día. Lujo: 280€+/día.",
   },
   {
     type: "city",
@@ -352,6 +459,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "130€",
     readTime: "6 min",
     keywords: ["hoteles en Niza", "dónde dormir en Niza", "hoteles playa Niza", "hoteles Costa Azul"],
+    transport: "Aeropuerto está en la ciudad, conectado por tranvía y autobús. Trenes TER conectan toda la Costa Azul. El tranvía es eficiente y barato.",
+    travelTips: ["La Promenade des Anglais es ideal para caminar al atardecer", "El Mercado de flores Cours Saleya cierra a las 17:30", "Desde Niza puedes visitar Mónaco en tren por 8€", "Las playas son de guijarros, lleva zapatos de agua", "El casco antiguo tiene los mejores restaurantes, busca en calles secundarias"],
+    neighborhoods: [
+      { name: "Vieille Ville", desc: "El casco antiguo con el mercado Cours Saleya, calles estrechas y bares." },
+      { name: "Promenade des Anglais", desc: "La avenida costera con playas, hoteles lujosos y paseo marítimo." },
+      { name: "Cimiez", desc: "Barrio residencial con ruinas romanas, museos y vistas panorámicas." },
+    ],
+    dayTrips: ["Mónaco - El principado a 25min en tren", "Cannes - Festival y playas a 30min en tren"],
+    budget: "Económico: 80€/día. Medio: 160€/día. Lujo: 350€+/día.",
   },
   {
     type: "city",
@@ -374,6 +490,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "110€",
     readTime: "6 min",
     keywords: ["hoteles en Burdeos", "dónde dormir en Burdeos", "hoteles Burdeos centro"],
+    transport: "Tranvía eficiente (3 líneas) y autobuses. Aeropuerto conecta por tranvía (línea A + autobús). Tren TGV a París en 2h. El centro es fácil de recorrer a pie.",
+    travelTips: ["La Cité du Vin es imprescindible para los amantes del vino", "El Espejo de Agua es el lugar más fotogénico al atardecer", "Saint-Émilion está a 40min en tren y merece la visita", "Los canelés son el postre típico, pruébalos en La Toque Cuivrée"],
+    neighborhoods: [
+      { name: "Saint-Pierre", desc: "El barrio histórico con calles peatonales, restaurantes y el Espejo de Agua." },
+      { name: "Chartrons", desc: "Barrio de anticuarios, galerías de arte y boutiques vintage." },
+      { name: "Saint-Michel", desc: "Barrio multicultural con el mercado más grande de Burdeos los fines de semana." },
+    ],
+    dayTrips: ["Saint-Émilion - Pueblo medieval y bodegas a 40min", "Dune du Pilat - La duna más grande de Europa a 1h"],
+    budget: "Económico: 70€/día. Medio: 140€/día. Lujo: 300€+/día.",
   },
 
   // ── Italia ──
@@ -422,6 +547,16 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "120€",
     readTime: "8 min",
     keywords: ["hoteles en Roma", "dónde dormir en Roma", "hoteles cerca del Coliseo", "hoteles Roma centro"],
+    transport: "Metro (3 líneas A, B, C) cubre lo principal. Autobuses y tranvías ATAC. El Roma Pass incluye transporte y museos. Aeropuerto Fiumicino conecta por tren Leonardo Express (14€).",
+    travelTips: ["La Fontana di Trevi es más espectacular al amanecer sin gente", "El Coliseo merece la pena con visita guiada subterránea", "El Vaticano tiene entrada gratuita el último domingo de mes", "Los restaurantes cerca de monumentos son más caros, busca en calles laterales", "El gelato artesanal se reconoce porque no tiene colores fluorescentes"],
+    neighborhoods: [
+      { name: "Trastevere", desc: "Barrio bohemio con calles empedradas, restaurantes auténticos y vida nocturna." },
+      { name: "Monti", desc: "Barrio hipster cerca del Coliseo con tiendas vintage y bares cool." },
+      { name: "Centro Storico", desc: "El corazón de Roma con la Fontana di Trevi, Panteón y Plaza Navona." },
+      { name: "Prati", desc: "Zona elegante cerca del Vaticano, más tranquila y con buenos restaurantes." },
+    ],
+    dayTrips: ["Pompeya - Ruinas romanas a 1h en tren", "Tívoli - Villa d'Este y sus fuentes a 45min"],
+    budget: "Económico: 75€/día. Medio: 150€/día. Lujo: 350€+/día.",
   },
   {
     type: "city",
@@ -444,6 +579,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "90€",
     readTime: "7 min",
     keywords: ["hoteles en Milán", "dónde dormir en Milán", "hoteles Milán centro", "hoteles baratos Milán"],
+    transport: "Metro (5 líneas) eficiente. Tranvía histórico es icónico. Aeropuerto Malpensa conecta por tren Malpensa Express (50min, 13€). Trenes regionales a toda Italia.",
+    travelTips: ["La Última Cena de Da Vinci requiere reserva con meses de antelación", "El Duomo se puede subir a las terrazas andando o en ascensor", "El barrio Brera es perfecto para cenar, lleno de restaurantes elegantes", "La Semana de la Moda (febrero y septiembre) dispara los precios de hotel"],
+    neighborhoods: [
+      { name: "Brera", desc: "Barrio bohemio con galerías de arte, restaurantes elegantes y calles adoquinadas." },
+      { name: "Navigli", desc: "Zona de canales con bares, restaurantes y vida nocturna vibrante." },
+      { name: "Centro", desc: "Duomo, Galleria Vittorio Emanuele y el quadrato della moda." },
+    ],
+    dayTrips: ["Lago di Como - Pueblos románticos a 1h en tren", "Lago Maggiore - Islas Borromeas a 1.5h"],
+    budget: "Económico: 80€/día. Medio: 160€/día. Lujo: 380€+/día.",
   },
   {
     type: "city",
@@ -467,6 +611,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "110€",
     readTime: "7 min",
     keywords: ["hoteles en Venecia", "dónde dormir en Venecia", "hoteles románticos Venecia", "hoteles Venecia centro"],
+    transport: "Vaporetto (autobús acuático) es el transporte principal. El Actv Tourist Pass por 1-7 días es la mejor opción. Desde el aeropuerto, water taxi (110€) o Alilaguna (15€).",
+    travelTips: ["Visita la Plaza de San Marcos al amanecer para verla vacía", "El paseo en góndola oficial son 80€ por 30 minutos, negocia antes", "Los restaurantes con vistas al canal son carísimos, come en callejones", "Murano y Burano merecen medio día cada una", "Carnaval en febrero es espectacular pero hoteles se triplican"],
+    neighborhoods: [
+      { name: "San Marco", desc: "El corazón turístico con la Plaza, la Basílica y el Palacio Ducal." },
+      { name: "Dorsoduro", desc: "Barrio universitario con galerías, bares locales y ambiente auténtico." },
+      { name: "Cannaregio", desc: "Barrio residencial con el gueto judío, menos turístico y más auténtico." },
+    ],
+    dayTrips: ["Murano y Burano - Islas del vidrio y el encaje", "Padua - Ciudad universitaria y Capilla Scrovegni a 30min"],
+    budget: "Económico: 85€/día. Medio: 170€/día. Lujo: 400€+/día.",
   },
   {
     type: "city",
@@ -489,6 +642,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "100€",
     readTime: "7 min",
     keywords: ["hoteles en Florencia", "dónde dormir en Florencia", "hoteles Florencia centro", "hoteles baratos Florencia"],
+    transport: "Florencia es compacta, se recorre andando. Autobuses urbanos (ATAF). Aeropuerto conecta por tranvía (T2) en 20min. Tren a Roma en 1.5h, a Venecia en 2h.",
+    travelTips: ["La Galería Uffizi requiere reserva online con 1-2 semanas", "Piazzale Michelangelo al atardecer tiene las mejores vistas", "El David de Miguel Ángel está en la Accademia, no en los Uffizi", "El mercado de San Lorenzo es ideal para comprar cuero", "La Toscana merece una excursión de día completo"],
+    neighborhoods: [
+      { name: "Centro Storico", desc: "El Duomo, la Piazza della Signoria y el Ponte Vecchio en una zona peatonal." },
+      { name: "Oltrarno", desc: "Al otro lado del río, con talleres artesanales, bares y el Palacio Pitti." },
+      { name: "San Lorenzo", desc: "Zona del mercado central y la basílica de los Medici." },
+    ],
+    dayTrips: ["Siena - Ciudad medieval a 1h", "San Gimignano - Torre medieval a 1.5h", "Chianti - Ruta del vino a 30min"],
+    budget: "Económico: 75€/día. Medio: 150€/día. Lujo: 350€+/día.",
   },
   {
     type: "city",
@@ -511,6 +673,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "80€",
     readTime: "6 min",
     keywords: ["hoteles en Nápoles", "dónde dormir en Nápoles", "hoteles centro Nápoles"],
+    transport: "Metro (2 líneas) y funiculares. El aeropuerto conecta por Alibus (5€). Trenes a Pompeya (30min) y Costa Amalfitana. El centro es caótico pero se anda bien.",
+    travelTips: ["La pizza napolitana auténtica se come en Antica Pizzeria Da Michele", "Pompeya requiere medio día completo, lleva agua y sombrero", "El metro de Nápoles tiene algunas de las estaciones más bonitas del mundo (Toledo)", "Los barrios españoles son vibrantes pero ten cuidado con objetos de valor"],
+    neighborhoods: [
+      { name: "Centro Storico", desc: "Patrimonio de la Humanidad con Spaccanapoli, iglesias y mercados callejeros." },
+      { name: "Chiaia", desc: "Zona elegante con tiendas de diseño, restaurantes y el paseo marítimo." },
+      { name: "Vomero", desc: "Barrio residencial en la colina con vistas espectaculares al Vesubio." },
+    ],
+    dayTrips: ["Pompeya y Herculano - Ruinas romanas a 30min", "Costa Amalfitana - Positano y Amalfi a 1.5h"],
+    budget: "Económico: 55€/día. Medio: 110€/día. Lujo: 250€+/día.",
   },
 
   // ── Reino Unido ──
@@ -557,6 +728,16 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "130€",
     readTime: "9 min",
     keywords: ["hoteles en Londres", "dónde dormir en Londres", "hoteles baratos Londres", "hoteles centro Londres"],
+    transport: "Metro (Tube, 11 líneas) es el más antiguo del mundo. Oyster Card es la mejor opción. Autobuses rojos de dos pisos icónicos. Aeropuertos: Heathrow (Heathrow Express 15min), Gatwick, Stansted.",
+    travelTips: ["Los museos nacionales son gratuitos (British Museum, National Gallery, Tate Modern)", "El Tube cierra sobre medianoche, los fines de semana hay servicio nocturno", "Compra Oyster Card en vez de billetes sueltos, ahorras 50%", "Los mercados de Borough, Camden y Brick Lane son imprescindibles", "El cambio de guardia en Buckingham Palace es a las 11:00h"],
+    neighborhoods: [
+      { name: "Covent Garden", desc: "Corazón turístico con el mercado, teatros, restaurantes y artistas callejeros." },
+      { name: "Shoreditch", desc: "Barrio hipster con arte urbano, mercadillos vintage y los mejores bares." },
+      { name: "South Kensington", desc: "Zona de museos, tiendas de lujo y el precioso Hyde Park." },
+      { name: "Camden Town", desc: "Barrio alternativo con el famoso mercado, música en vivo y ambiente ecléctico." },
+    ],
+    dayTrips: ["Windsor - Castillo real a 45min en tren", "Oxford - Universidad histórica a 1h"],
+    budget: "Económico: 90€/día. Medio: 180€/día. Lujo: 400€+/día.",
   },
   {
     type: "city",
@@ -579,6 +760,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "110€",
     readTime: "7 min",
     keywords: ["hoteles en Edimburgo", "dónde dormir en Edimburgo", "hoteles Edimburgo centro"],
+    transport: "Tranvía conecta aeropuerto con centro (35min). Autobuses Lothian cubren la ciudad. Edimburgo se divide en Old Town y New Town, ambas walkable.",
+    travelTips: ["El Festival Fringe en agosto es el más grande del mundo, reserva con meses", "Arthur's Seat tiene las mejores vistas de la ciudad, subida de 45min", "El Scotch Whisky Experience es una buena introducción al whisky escocés", "El Castillo de Edimburgo dispara coñón a las 13:00h cada día"],
+    neighborhoods: [
+      { name: "Old Town", desc: "Casco medieval con la Royal Mile, el Castillo y calles empedradas." },
+      { name: "New Town", desc: "Georgiana y elegante, con Princes Street y tiendas de lujo." },
+      { name: "Stockbridge", desc: "Barrio residencial con mercados de fin de semana y ambiente local." },
+    ],
+    dayTrips: ["Highlands - Paisajes escoceses a 1.5h", "Loch Lomond - Lago y parque natural a 1h"],
+    budget: "Económico: 75€/día. Medio: 150€/día. Lujo: 320€+/día.",
   },
 
   // ── Países Bajos ──
@@ -625,6 +815,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "100€",
     readTime: "7 min",
     keywords: ["hoteles en Ámsterdam", "dónde dormir en Ámsterdam", "hoteles baratos Ámsterdam"],
+    transport: "Tranvías y metro (GVB). Bicicleta es el rey, alquila una. Tren desde Schiphol cada 15min. Los canales se navegan en barco turístico. Pase I Amsterdam incluye museos y transporte.",
+    travelTips: ["Los museos principales (Rijksmuseum, Van Gogh) requieren reserva online", "El Barrio Rojo no permite fotos, respeta las normas", "Los canales al atardecer desde el Puente de los Siete Puntos son espectaculares", "Los coffee shops son legales pero solo para mayores de 18", "Los mercados Albert Cuyp y Ten Katemarkt son ideales para probar comida local"],
+    neighborhoods: [
+      { name: "Centro", desc: "Dam Square, Barrio Rojo y los grandes almacenes en una zona peatonal." },
+      { name: "Jordaan", desc: "Barrio bohemio con galerías, boutiques, mercados y bares locales." },
+      { name: "De Pijp", desc: "Barrio multicultural con el mercado Albert Cuyp y restaurantes étnicos." },
+    ],
+    dayTrips: ["Zaanse Schans - Molinos y quesos a 20min", "Keukenhof - Campos de tulipanes (solo marzo-mayo)"],
+    budget: "Económico: 85€/día. Medio: 170€/día. Lujo: 380€+/día.",
   },
   {
     type: "city",
@@ -694,6 +893,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "85€",
     readTime: "7 min",
     keywords: ["hoteles en Berlín", "dónde dormir en Berlín", "hoteles baratos Berlín"],
+    transport: "Metro (U-Bahn, 9 líneas), tren ligero (S-Bahn) y autobuses. Berlin WelcomeCard incluye transporte y descuentos. Aeropuerto BER conecta por tren FEX en 30min.",
+    travelTips: ["La East Side Gallery es el fragmento más largo del Muro, gratis", "El Reichstag tiene cúpula gratis pero requiere reserva online", "Berlín es muy económico comparado con otras capitales europeas", "Los museos en la Isla de los Museos merecen 2 días completos", "El mercadillo de Mauerpark los domingos es una experiencia única"],
+    neighborhoods: [
+      { name: "Mitte", desc: "El centro histórico con la Puerta de Brandenburgo, Reichstag y la Isla de los Museos." },
+      { name: "Kreuzberg", desc: "Barrio alternativo con arte callejero, bares, kebab y vida nocturna." },
+      { name: "Prenzlauer Berg", desc: "Barrio familiar con calles arboladas, cafés y mercados de agricultores." },
+    ],
+    dayTrips: ["Potsdam - Palacios Sanssouci a 30min en tren", "Spreewald - Bosque y canales a 1.5h"],
+    budget: "Económico: 55€/día. Medio: 110€/día. Lujo: 250€+/día.",
   },
   {
     type: "city",
@@ -832,6 +1040,15 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "75€",
     readTime: "7 min",
     keywords: ["hoteles en Lisboa", "dónde dormir en Lisboa", "hoteles baratos Lisboa"],
+    transport: "Metro (4 líneas), tranvías históricos (el 28 es icónico) y funiculares. Aeropuerto conecta por metro (línea vermelha) en 20min. Lisboa es muy cuesta arriba, usa el metro.",
+    travelTips: ["El tranvía 28 es el más pintoresco pero siempre lleno, súbete en la primera parada", "Los pastéis de nata auténticos son en Pastéis de Belém", "El fado se escucha mejor en Alfama, en casas de fado tradicionales", "La tarjeta Lisboa Card incluye transporte y museos", "Las vistas desde el Castillo de São Jorge al atardecer son imprescindibles"],
+    neighborhoods: [
+      { name: "Alfama", desc: "El barrio más antiguo con calles estrechas, fado y miradores." },
+      { name: "Baixa-Chiado", desc: "El centro reconstruido tras el terremoto, con tiendas y restaurantes." },
+      { name: "Bairro Alto", desc: "Barrio bohemio y de fiesta, con bares, galerías y miradores." },
+    ],
+    dayTrips: ["Sintra - Palacio da Pena y castillo a 40min", "Cascais - Pueblo costero a 30min"],
+    budget: "Económico: 55€/día. Medio: 110€/día. Lujo: 240€+/día.",
   },
   {
     type: "city",

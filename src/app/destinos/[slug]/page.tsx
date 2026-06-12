@@ -3,7 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   MapPin, Star, Eye, Utensils, Camera, Plane, Clock,
-  MessageSquare, ChevronRight, Home, ArrowRight, Building2
+  MessageSquare, ChevronRight, Home, ArrowRight, Building2,
+  Train, Lightbulb, Map, SunMedium, Wallet, ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { destinations, getDestinationBySlug, getCitiesByCountry } from "@/lib/destinations";
@@ -172,6 +173,22 @@ function CountryPage({ dest }: { dest: NonNullable<ReturnType<typeof getDestinat
             </div>
           </section>
 
+          {dest.travelTips && dest.travelTips.length > 0 && (
+            <section className="mb-12 rounded-2xl border border-orange-100 bg-orange-50 p-6 dark:border-orange-900/30 dark:bg-orange-950/10">
+              <h2 className="mb-6 flex items-center gap-3 text-xl font-bold text-gray-900 dark:text-white">
+                <Lightbulb className="h-6 w-6 text-orange-500" /> Consejos para viajar a {dest.name}
+              </h2>
+              <ul className="space-y-3">
+                {dest.travelTips.map((tip, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange-200 text-xs font-bold text-orange-700 dark:bg-orange-800/50 dark:text-orange-300">{i + 1}</span>
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="rounded-2xl border border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50 p-6 text-center dark:border-gray-800 dark:from-blue-950/20 dark:to-purple-950/20">
             <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">¿Necesitas ayuda para planificar?</h2>
             <p className="mb-4 text-gray-600 dark:text-gray-400">Nuestro asistente de IA puede recomendarte hoteles personalizados</p>
@@ -294,6 +311,75 @@ function CityPage({ dest }: { dest: NonNullable<ReturnType<typeof getDestination
               ))}
             </div>
           </section>
+
+          {dest.transport && (
+            <section className="mb-12 rounded-2xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-900/30 dark:bg-blue-950/10">
+              <h2 className="mb-4 flex items-center gap-3 text-xl font-bold text-gray-900 dark:text-white">
+                <Train className="h-6 w-6 text-blue-500" /> Cómo moverse por {dest.name}
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{dest.transport}</p>
+              {dest.budget && (
+                <div className="mt-4 flex items-start gap-3 rounded-xl bg-white p-4 dark:bg-gray-900">
+                  <Wallet className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">Presupuesto estimado</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{dest.budget}</p>
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          {dest.neighborhoods && dest.neighborhoods.length > 0 && (
+            <section className="mb-12">
+              <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold text-gray-900 dark:text-white">
+                <Map className="h-6 w-6 text-purple-500" /> Mejores barrios para alojarse en {dest.name}
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {dest.neighborhoods.map((hood, i) => (
+                  <div key={i} className="rounded-xl border border-gray-100 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">
+                    <div className="mb-1 flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-100 text-xs font-bold text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">{i + 1}</span>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{hood.name}</h3>
+                    </div>
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 ml-8">{hood.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {dest.dayTrips && dest.dayTrips.length > 0 && (
+            <section className="mb-12">
+              <h2 className="mb-6 flex items-center gap-3 text-2xl font-bold text-gray-900 dark:text-white">
+                <SunMedium className="h-6 w-6 text-yellow-500" /> Excursiones desde {dest.name}
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {dest.dayTrips.map((trip, i) => (
+                  <div key={i} className="flex items-start gap-3 rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-100 text-sm font-bold text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400">{i + 1}</span>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">{trip}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {dest.travelTips && dest.travelTips.length > 0 && (
+            <section className="mb-12 rounded-2xl border border-orange-100 bg-orange-50 p-6 dark:border-orange-900/30 dark:bg-orange-950/10">
+              <h2 className="mb-6 flex items-center gap-3 text-xl font-bold text-gray-900 dark:text-white">
+                <Lightbulb className="h-6 w-6 text-orange-500" /> Consejos para viajar a {dest.name}
+              </h2>
+              <ul className="space-y-3">
+                {dest.travelTips.map((tip, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange-200 text-xs font-bold text-orange-700 dark:bg-orange-800/50 dark:text-orange-300">{i + 1}</span>
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {relatedDestinations.length > 0 && (
             <section className="mb-12">
