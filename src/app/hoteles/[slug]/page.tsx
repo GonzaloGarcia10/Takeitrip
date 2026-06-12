@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Star, ArrowLeft, MessageSquare, Eye, Utensils, Camera, Plane, Clock, MapPinned, ExternalLink } from "lucide-react";
-import { HotelList } from "./hotel-list";
 import { Button } from "@/components/ui/button";
 
 interface HotelPageProps {
@@ -255,20 +254,6 @@ export default async function HotelPage({ params }: HotelPageProps) {
 
   const cityName = dest?.name || slug.charAt(0).toUpperCase() + slug.slice(1);
 
-  let hotels: Awaited<ReturnType<typeof prisma.hotel.findMany>> = [];
-  
-  try {
-    hotels = await prisma.hotel.findMany({
-      where: {
-        city: { contains: cityName, mode: "insensitive" },
-        isActive: true,
-      },
-      orderBy: { rating: "desc" },
-    });
-  } catch (error) {
-    console.warn("Database unavailable, showing destination info without hotel list");
-  }
-
   return (
     <div className="relative min-h-screen bg-black">
       {dest && (
@@ -383,20 +368,16 @@ export default async function HotelPage({ params }: HotelPageProps) {
           </div>
         )}
 
-        {hotels.length > 0 ? (
-          <HotelList hotels={hotels} displayName={dest?.name || cityName} cityInfo={{ content: dest?.description || "", faqs: dest?.faqs || [] }} />
-        ) : (
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-            <p className="mb-4 text-white/60">No hay hoteles disponibles en estos momentos.</p>
-            <p className="mb-6 text-sm text-white/40">Prueba preguntar al asistente de IA para obtener recomendaciones personalizadas.</p>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+            <p className="mb-4 text-white/60">Encuentra los mejores hoteles en {cityName}</p>
+            <p className="mb-6 text-sm text-white/40">Pregunta a nuestro asistente de IA y recibe recomendaciones personalizadas con precios reales de Booking.com.</p>
             <Link href="/chat">
               <Button className="bg-gradient-to-r from-blue-500 to-purple-500">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Hablar con la IA
+                Preguntar a la IA
               </Button>
             </Link>
           </div>
-        )}
 
         {dest && dest.faqs.length > 0 && (
           <div className="mt-12">

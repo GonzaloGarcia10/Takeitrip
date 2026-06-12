@@ -5,8 +5,6 @@ import {
   MapPin, Star, Eye, Utensils, Camera, Plane, Clock,
   MessageSquare, ChevronRight, Home, ArrowRight, Building2
 } from "lucide-react";
-import { prisma } from "@/lib/prisma";
-import { HotelList } from "@/app/hoteles/[slug]/hotel-list";
 import { Button } from "@/components/ui/button";
 import { destinations, getDestinationBySlug, getCitiesByCountry } from "@/lib/destinations";
 import { notFound } from "next/navigation";
