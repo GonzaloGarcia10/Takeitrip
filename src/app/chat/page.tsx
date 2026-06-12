@@ -1,6 +1,6 @@
 "use client";
 
-import { useChat } from "@/hooks/useChat";
+import { useChat } from "@/hooks/useChatProvider";
 import { MessageBubble } from "@/components/chat/message-bubble";
 import { ChatInput } from "@/components/chat/chat-input";
 import dynamic from "next/dynamic";
@@ -25,22 +25,19 @@ export default function ChatPage() {
     streamingMessage,
     sendMessage,
     stopStreaming,
-    clearMessages,
-  } = useChat();
+  } = useChat("qdiv0");
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, streamingMessage]);
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTop = el.scrollHeight;
+  }, [messages.length, streamingMessage]);
 
   return (
     <div className="flex h-[calc(100vh-64px)] flex-col bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-purple-950/10 to-black" />
-
-      
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto">
         {messages.length === 0 && !streamingMessage ? (

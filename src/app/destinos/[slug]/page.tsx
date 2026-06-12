@@ -30,9 +30,26 @@ export async function generateMetadata({ params }: DestinationPageProps): Promis
       : `${dest.name}: Guía Completa ${dest.bestTime} | Takeitrip`,
     description: dest.description,
     keywords: dest.keywords,
+    alternates: {
+      canonical: `/destinos/${slug}`,
+    },
     openGraph: {
       title: `Viajar a ${dest.name} | Takeitrip`,
-      description: dest.short,
+      description: dest.short || dest.description,
+      type: "article",
+      locale: "es_ES",
+      url: `https://takeitrip.es/destinos/${slug}`,
+      images: [
+        {
+          url: dest.image,
+          width: 1200,
+          height: 800,
+          alt: `Guía de viaje ${dest.name}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
       images: [dest.image],
     },
   };

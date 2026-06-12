@@ -4,27 +4,53 @@ import { destinations } from "@/lib/destinations";
 const BASE_URL = "https://takeitrip.es";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1 },
-    { url: `${BASE_URL}/chat`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
-    { url: `${BASE_URL}/destinos`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+  const now = new Date();
+
+  const staticPages: MetadataRoute.Sitemap = [
+    {
+      url: BASE_URL,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 1.0,
+    },
+    {
+      url: `${BASE_URL}/chat`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/destinos`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/hoteles/paris`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/hoteles/roma`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/hoteles/barcelona`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
   ];
 
-  const destPages = destinations.map((d) => ({
+  const destPages: MetadataRoute.Sitemap = destinations.map((d) => ({
     url: `${BASE_URL}/destinos/${d.slug}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "weekly" as const,
-    priority: d.type === "country" ? 0.8 : 0.9,
+    priority: d.type === "city" ? 0.85 : 0.7,
   }));
 
-  const hotelPages = destinations
-    .filter((d) => d.type === "city")
-    .map((d) => ({
-      url: `${BASE_URL}/hoteles/${d.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }));
-
-  return [...staticPages, ...destPages, ...hotelPages];
+  return [...staticPages, ...destPages];
 }

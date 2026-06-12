@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Star, ArrowLeft, MessageSquare, Eye, Utensils, Camera, Plane, Clock, MapPinned } from "lucide-react";
-import { prisma } from "@/lib/prisma";
+import { MapPin, Star, ArrowLeft, MessageSquare, Eye, Utensils, Camera, Plane, Clock, MapPinned, ExternalLink } from "lucide-react";
 import { HotelList } from "./hotel-list";
 import { Button } from "@/components/ui/button";
 
@@ -224,6 +223,29 @@ export async function generateMetadata({ params }: HotelPageProps): Promise<Meta
   return {
     title: `Hoteles en ${city} | Takeitrip`,
     description: dest?.description || `Descubre los mejores hoteles en ${city}. Recomendaciones personalizadas con IA, precios actualizados y enlaces de reserva.`,
+    keywords: [`hoteles ${city}`, `alojamiento ${city}`, `reserva hotel ${city}`, dest?.country || ""],
+    alternates: {
+      canonical: `/hoteles/${slug}`,
+    },
+    openGraph: {
+      title: `Hoteles en ${city} | Takeitrip`,
+      description: dest?.description || `Encuentra los mejores hoteles en ${city} con precios reales de Booking.com.`,
+      type: "website",
+      locale: "es_ES",
+      url: `https://takeitrip.es/hoteles/${slug}`,
+      images: dest?.image ? [
+        {
+          url: dest.image,
+          width: 1200,
+          height: 800,
+          alt: `Hoteles en ${city}`,
+        },
+      ] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: dest?.image ? [dest.image] : [],
+    },
   };
 }
 
@@ -233,13 +255,19 @@ export default async function HotelPage({ params }: HotelPageProps) {
 
   const cityName = dest?.name || slug.charAt(0).toUpperCase() + slug.slice(1);
 
-  const hotels = await prisma.hotel.findMany({
-    where: {
-      city: { contains: cityName, mode: "insensitive" },
-      isActive: true,
-    },
-    orderBy: { rating: "desc" },
-  });
+  let hotels: Awaited<ReturnType<typeof prisma.hotel.findMany>> = [];
+  
+  try {
+    hotels = await prisma.hotel.findMany({
+      where: {
+        city: { contains: cityName, mode: "insensitive" },
+        isActive: true,
+      },
+      orderBy: { rating: "desc" },
+    });
+  } catch (error) {
+    console.warn("Database unavailable, showing destination info without hotel list");
+  }
 
   return (
     <div className="relative min-h-screen bg-black">
@@ -280,7 +308,18 @@ export default async function HotelPage({ params }: HotelPageProps) {
 
         {dest && (
           <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-white/70">{dest.description}</p>
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-4">
+              <p className="text-white/70">{dest.description}</p>
+              <a
+                href={`https://www.booking.com/searchresults.html?ss=${dest.name}&aid=${process.env.NEXT_PUBLIC_BOOKING_AFFILIATE_ID || "your-affiliate-id"}&label=takeitrip`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Ver precios en Booking
+              </a>
+            </div>
           </div>
         )}
 

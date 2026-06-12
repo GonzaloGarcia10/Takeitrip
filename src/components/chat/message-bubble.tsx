@@ -48,7 +48,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             {isUser ? "Tú" : "Takeitrip AI"}
           </span>
         </div>
-        <div className="prose prose-sm max-w-none dark:prose-invert prose-p:text-white/60 prose-li:text-white/60 prose-strong:text-white prose-code:text-blue-400 prose-code:bg-white/10 prose-code:rounded prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-a:text-blue-400">
+        <div className="prose prose-sm max-w-none dark:prose-invert prose-p:text-white/90 prose-li:text-white/90 prose-strong:text-white prose-code:text-blue-400 prose-code:bg-white/10 prose-code:rounded prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-a:text-blue-400">
           <ReactMarkdown>{message.content}</ReactMarkdown>
         </div>
         {!isUser && (

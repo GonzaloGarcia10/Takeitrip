@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function Error({
@@ -10,9 +9,9 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
+  if (process.env.NODE_ENV === "development") {
+    console.error("[Error Boundary]", error);
+  }
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4">

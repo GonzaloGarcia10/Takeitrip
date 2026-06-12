@@ -1,0 +1,40 @@
+# Google Search Console Verification
+# ================================
+# Para verificar tu sitio en Google Search Console:
+# 1. Ve a https://search.google.com/search-console
+# 2. Añade tu propiedad (dominio o prefijo URL)
+# 3. Selecciona "Método HTML tag" 
+# 4. Copia el código de verificación que te dan
+# 5. Actualiza el campo 'verification.google' en src/app/layout.tsx
+
+# Pasos para mejorar el indexado:
+# ================================
+
+# 1. Sitemap
+# -----------
+# Tu sitemap está disponible en: https://takeitrip.es/sitemap.xml
+# Envíalo a Google Search Console en "Sitemaps" > "Añadir sitemap"
+
+# 2. robots.txt
+# -------------
+# Tu robots.txt está en: https://takeitrip.es/robots.txt
+# Verifica que permite el acceso de Googlebot
+
+# 3. Indexación manual
+# ---------------------
+# Para pedir a Google que indexe páginas específicas:
+# - Ve a https://search.google.com/search-console
+# - Selecciona tu propiedad
+# - Ve a "Inspeccionar URL"
+# - Introduce la URL que quieres indexar
+# - Clic en "Solicitar indexación"
+
+# 4. after verified, remove this comment
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+Disallow: /_next/
+
+Sitemap: https://takeitrip.es/sitemap.xml
