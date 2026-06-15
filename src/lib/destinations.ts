@@ -1286,6 +1286,16 @@ export const destinations: DestinationData[] = [
     avgFlightPrice: "450€",
     readTime: "7 min",
     keywords: ["hoteles en Miami", "dónde dormir en Miami", "hoteles playa Miami", "hoteles South Beach"],
+    transport: "Alquiler de coche recomendado. Autobús (Metrobus) y Metrorail cubren Miami. El aeropuerto (MIA) conecta por autobús y tren (Metrorail). Uber/Lyft son muy usados. Miami Beach tiene un trolley gratuito.",
+    travelTips: ["South Beach es ideal temprano para evitar el calor y las multitudes", "Little Havana tiene los mejores cafés cubanos y la mejor música en vivo", "Wynwood Walls es gratuito y cambia constantemente", "Los Everglades merecen un día completo, mejor con tour guiado", "El tráfico en Miami es intenso, evita las horas punta"],
+    neighborhoods: [
+      { name: "South Beach", desc: "La zona más icónica con playas, art déco, restaurantes y vida nocturna." },
+      { name: "Downtown Miami", desc: "Centro financiero con Brickell, museos y la mejor gastronomía." },
+      { name: "Little Havana", desc: "Calle Ocho, cultura cubana, tabaquerías y el mejor café cubano." },
+      { name: "Coconut Grove", desc: "Barrio bohemio con tiendas, restaurantes al aire libre y marina." },
+    ],
+    dayTrips: ["Everglades - Pantanos y caimanes a 1h", "Key West - Islas paradisíacas a 3.5h"],
+    budget: "Económico: 90€/día. Medio: 180€/día. Lujo: 400€+/día (temporada alta diciembre-abril).",
   },
 ];
 
